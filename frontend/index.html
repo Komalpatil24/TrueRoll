@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard – TrueRoll</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><div class="logo">⛓</div> TrueRoll</div>
+    <div class="user-chip">
+      <span id="roleBadges"></span>
+      <span class="muted" id="account"></span>
+      <button class="secondary small" id="logoutBtn">Sign out</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="setupMsg" class="card hidden"></div>
+
+    <section class="card" id="overview">
+      <h2>Overview</h2>
+      <div class="stats">
+        <div class="stat"><span class="muted">Sessions</span><b id="stSessions">–</b></div>
+        <div class="stat"><span class="muted">Open now</span><b id="stOpen">–</b></div>
+        <div class="stat"><span class="muted">Students</span><b id="stStudents">–</b></div>
+        <div class="stat"><span class="muted">Class average</span><b id="stAvg">–</b></div>
+        <div class="stat"><span class="muted">My attendance</span><b id="stMine">–</b></div>
+      </div>
+      <p class="muted">Contract: <code id="contractAddr"></code></p>
+    </section>
+
+    <section class="card hidden" id="registerCard">
+      <h2>Register as a student</h2>
+      <p class="muted" style="margin-top:0">One-time step. Your name and roll number are stored on-chain.</p>
+      <div class="row">
+        <input id="regName" placeholder="Full name" maxlength="64" />
+        <input id="regRoll" placeholder="Roll number (unique)" maxlength="32" />
+        <button id="regBtn">Register</button>
+      </div>
+    </section>
+
+    <section class="card hidden" id="teacherCard">
+      <h2>Teacher: start a session</h2>
+      <div class="row">
+        <input id="sesTitle" placeholder="Session title, e.g. Math – Lecture 5" maxlength="100" />
+        <input id="sesDur" type="number" min="1" max="1440" value="10" style="max-width:130px" aria-label="Duration in minutes" />
+        <span class="muted">minutes</span>
+        <button id="sesBtn">Create session</button>
+      </div>
+    </section>
+
+    <section class="card hidden" id="adminCard">
+      <h2>Admin: teachers &amp; ownership</h2>
+      <div class="row">
+        <input id="teacherAddr" placeholder="Wallet address (0x...)" />
+        <button id="addTeacherBtn">Add teacher</button>
+        <button id="rmTeacherBtn" class="secondary">Remove teacher</button>
+        <button id="transferBtn" class="danger">Make admin</button>
+      </div>
+      <p class="muted">“Make admin” hands your admin role to that address — you stay a teacher but lose admin rights.</p>
+      <details><summary>Current teachers</summary><ul class="addr" id="teacherList"></ul></details>
+    </section>
+
+    <section class="card" id="sessionsCard">
+      <h2>Sessions</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Title</th><th>Window</th><th>Present</th><th>Status</th><th></th></tr></thead>
+          <tbody id="sessionRows"></tbody>
+        </table>
+      </div>
+      <p class="muted hidden" id="noSessions">No sessions yet.</p>
+    </section>
+
+    <section class="card hidden" id="attendeesCard">
+      <div class="card-head">
+        <h2 id="attendeesTitle">Roll sheet</h2>
+        <button class="secondary small" id="closeAttendees">Close</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Roll no</th><th>Name</th><th>Status</th><th></th></tr></thead>
+          <tbody id="attendeeRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card hidden" id="studentsCard">
+      <div class="card-head">
+        <h2>Students</h2>
+        <div class="row">
+          <span class="muted">Below</span>
+          <input id="threshold" type="number" min="0" max="100" value="75" style="width:80px" aria-label="Attendance threshold percent" />
+          <span class="muted">%</span>
+          <div class="tabs">
+            <button class="tab active small" id="tabAll">All</button>
+            <button class="tab small" id="tabLow">Low attendance</button>
+          </div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Roll no</th><th>Name</th><th>Attendance</th><th></th></tr></thead>
+          <tbody id="studentRows"></tbody>
+        </table>
+      </div>
+      <p class="muted hidden" id="noStudents">Nobody here.</p>
+    </section>
+
+    <section class="card hidden" id="myReportCard">
+      <div class="card-head">
+        <h2>My attendance report</h2>
+        <button class="secondary small" id="myCsvBtn">Download CSV</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Session</th><th>Date</th><th>Status</th></tr></thead>
+          <tbody id="myReportRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card" id="activityCard">
+      <h2>Recent activity</h2>
+      <ul class="feed" id="feed"></ul>
+    </section>
+
+    <section class="card hidden" id="auditCard">
+      <h2>Admin: sign-in log</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Time</th><th>Event</th><th>Wallet</th><th>IP</th></tr></thead>
+          <tbody id="auditRows"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" role="status"></div>
+
+  <script src="ethers.umd.min.js"></script>
+  <script src="ethers-fallback.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

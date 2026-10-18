@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign in – TrueRoll</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="login-page">
+    <section class="hero" aria-label="About TrueRoll">
+      <div class="brand"><div class="logo">⛓</div> TrueRoll</div>
+      <h1>Attendance that nobody can quietly edit.</h1>
+      <p>Every session and every “present” is recorded on the blockchain. Sign in with your wallet — no passwords, no accounts to remember.</p>
+      <div class="roles">
+        <div class="role"><span class="ic">🎓</span><div><b>Students</b><span class="muted">Register once, mark yourself present, download your own attendance report.</span></div></div>
+        <div class="role"><span class="ic">🧑‍🏫</span><div><b>Teachers</b><span class="muted">Start timed sessions, extend or close them, export CSV roll sheets, spot low attendance.</span></div></div>
+        <div class="role"><span class="ic">🛡️</span><div><b>Admin</b><span class="muted">Manage teachers, hand over the admin role and review the sign-in log.</span></div></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="login-card">
+        <div>
+          <h2>Welcome back</h2>
+          <p class="muted" style="margin:6px 0 0">Your role is detected automatically from your wallet.</p>
+        </div>
+
+        <ol class="steps" aria-live="polite">
+          <li id="step1" class="active"><span class="dot">1</span> Connect your wallet</li>
+          <li id="step2"><span class="dot">2</span> Sign the free sign-in message</li>
+          <li id="step3"><span class="dot">3</span> Enter the dashboard</li>
+        </ol>
+
+        <div id="alert" class="alert hidden" role="alert"></div>
+
+        <button id="loginBtn" class="big">Sign in with MetaMask</button>
+        <p class="muted" style="margin:0">Signing is free and never sends a transaction or moves funds.</p>
+
+        <div class="status-line"><span id="statusDot" class="status-dot"></span><span id="statusText">Checking server…</span></div>
+      </div>
+    </section>
+  </div>
+
+  <script src="ethers.umd.min.js"></script>
+  <script src="ethers-fallback.js"></script>
+  <script src="login.js"></script>
+</body>
+</html>

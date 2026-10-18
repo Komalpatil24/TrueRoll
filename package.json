@@ -1,0 +1,22 @@
+{
+  "name": "trueroll",
+  "version": "1.0.0",
+  "description": "Decentralized attendance system on Ethereum (Hardhat + ethers + Node backend + plain JS frontend)",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "node": "hardhat node",
+    "deploy": "hardhat run scripts/deploy.js --network localhost",
+    "start": "node server/index.js",
+    "frontend": "node server/index.js",
+    "test:server": "node --test server/test/lib.test.js"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.0"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "ethers": "^6.13.4"
+  }
+}
